@@ -3,19 +3,22 @@ package kz.akbar.task2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class EvenDigitsNumbers {
+
+    private static final Logger LOG = Logger.getLogger(EvenDigitsNumbers.class.getName());
     private MinimalDifferentNumbers minimalDifferentNumbers;
     List<Integer> oddEvenDigitsNumbers = new ArrayList<>();
     private int onlyEvenCount;
-    private int oddEvenEqualityCount;
+    private int evenOddEqualityCount;
 
     public int getOnlyEvenCount() {
         return onlyEvenCount;
     }
 
-    public int getOddEvenEqualityCount() {
-        return oddEvenEqualityCount;
+    public int getEvenOddEqualityCount() {
+        return evenOddEqualityCount;
     }
 
     public EvenDigitsNumbers() {
@@ -45,6 +48,7 @@ public class EvenDigitsNumbers {
     }
 
     public void onlyEvenDigitsNumbersCount(int[] numbers) {
+        LOG.info("Getting numbers with only even digits: " + Arrays.toString(numbers));
         List<Integer> evenDigitsNumbers = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
             if (isDigitsEven(numbers[i])) {
@@ -54,7 +58,7 @@ public class EvenDigitsNumbers {
             }
         }
         onlyEvenCount = evenDigitsNumbers.size();
-        oddEvenEqualityCount = oddEvenDigitsEqualityNumberCount(oddEvenDigitsNumbers);
+        evenOddEqualityCount = oddEvenDigitsEqualityNumberCount(oddEvenDigitsNumbers);
     }
 
 }

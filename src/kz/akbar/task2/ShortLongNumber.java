@@ -1,8 +1,10 @@
 package kz.akbar.task2;
 
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 public class ShortLongNumber {
+    private static final Logger LOG = Logger.getLogger(ShortLongNumber.class.getName());
 
     public int numberCapacity(int number) {
         int capacity = 0;
@@ -13,7 +15,8 @@ public class ShortLongNumber {
         return capacity;
     }
 
-    private int[] minMaxCapacityNumber(int... numbers) {
+    public int[] minMaxCapacityNumber(int... numbers) {
+        LOG.info("Getting number with minimum and maximum capacity form: " + Arrays.toString(numbers));
         int[] capacityNumber = new int[4];
         int minCap = numberCapacity(numbers[0]);
         int maxCap = numberCapacity(numbers[0]);

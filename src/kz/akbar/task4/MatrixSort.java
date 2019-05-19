@@ -1,28 +1,24 @@
 package kz.akbar.task4;
 
+import kz.akbar.task4.util.PrintMatrix;
+
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class MatrixSort extends Random {
-
+    private static final Logger LOG = Logger.getLogger(MatrixSort.class.getName());
     private int[][] matrix;
     private int[][] sortedMatrix;
     private int count;
 
     public MatrixSort(int dimension, int lower, int higher) {
         this.sortedMatrix = new int[dimension][dimension];
-        this.matrix = initMatrix(dimension,lower,higher);
+        this.matrix = initMatrix(dimension, lower, higher);
     }
 
     public int[][] getMatrix() {
         return matrix;
-    }
-
-    void printMatrix(int[][] matrix) {
-        System.out.println("Your matrix: ");
-        for (int[] line : matrix) {
-            System.out.println(Arrays.toString(line));
-        }
     }
 
     private int[][] initMatrix(int dimension, int lower, int higher) {
@@ -33,13 +29,13 @@ public class MatrixSort extends Random {
         return matrix;
     }
 
-    int[] getOrderedColumn(int column, int[][] matrix) {
+    int[] getOrderedColumn(int columnNumber) {
         int[] columnToOrder = new int[matrix.length];
         for (int i = 0; i < matrix.length; i++) {
-            columnToOrder[i] = matrix[i][column];
+            columnToOrder[i] = matrix[i][columnNumber];
         }
-        int[] orderedColumn = Arrays.stream(columnToOrder).sorted().toArray();
-        return orderedColumn;
+//        Arrays.sort(columnToOrder);
+        return Arrays.stream(columnToOrder).sorted().toArray();
     }
 
     private int[][] reduceMatrix(int[][] matrix) {
@@ -55,7 +51,7 @@ public class MatrixSort extends Random {
         return reducedMatrix;
     }
 
-    private int[] minLine(int[][] matrix, int col) {
+    private int[] minLine(int col) {
         count = 0;
         int number = matrix[0][col];
         for (int i = 1; i < matrix.length; i++) {
@@ -67,10 +63,11 @@ public class MatrixSort extends Random {
         return matrix[count];
     }
 
-    int[][] sortMatrix(int[][] matrix, int col) {
+    int[][] doSortMatrix(int col) {
+        LOG.info("Sorting " + PrintMatrix.matrixToString(matrix) + " by column number " + col);
         int length = matrix.length;
         for (int i = 0; i < length; i++) {
-            sortedMatrix[i] = minLine(matrix, col);
+            sortedMatrix[i] = minLine(col);
             matrix = reduceMatrix(matrix);
         }
         return sortedMatrix;

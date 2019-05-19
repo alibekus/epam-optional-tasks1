@@ -1,12 +1,14 @@
 package kz.akbar.task2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SortNumbers {
 
-    ShortLongNumber shortLongNumber = new ShortLongNumber();
-
+    private static final Logger LOG = Logger.getLogger(SortNumbers.class.getName());
+    private ShortLongNumber shortLongNumber = new ShortLongNumber();
     private List<Integer> numbersList = new ArrayList<>();
 
     private int minCapNumber() {
@@ -24,6 +26,7 @@ public class SortNumbers {
     }
 
     public int[] ascendingSort(int... numbers) {
+        LOG.info("Ascending sorting of " + Arrays.toString(numbers));
         for (int number : numbers) {
             this.numbersList.add(number);
         }

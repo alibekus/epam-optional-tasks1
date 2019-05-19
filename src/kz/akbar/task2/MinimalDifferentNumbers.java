@@ -1,10 +1,11 @@
 package kz.akbar.task2;
 
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 public class MinimalDifferentNumbers {
+    private static final Logger LOG = Logger.getLogger(MinimalDifferentNumbers.class.getName());
     private ShortLongNumber shortLongNumber;
-
     public MinimalDifferentNumbers() {
         this.shortLongNumber = new ShortLongNumber();
     }
@@ -25,6 +26,7 @@ public class MinimalDifferentNumbers {
     }
 
     public int firstMinimalDistinctDigitsNumber(int[] numbers) {
+        LOG.info("Getting first number with minimum distinct digits from: " + Arrays.toString(numbers));
         int minIndex = -1;
         int minNumOfDistinctDigit = Integer.MAX_VALUE;
         int curNumOfDistinctDigit = 0;

@@ -1,36 +1,53 @@
 package kz.akbar.task2;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class LessAverageNumbers {
+    private static final Logger LOG = Logger.getLogger(LessAverageNumbers.class.getName());
     private int[] numbers;
     private SortNumbers sortNumbers;
+    private int averageCapacity;
+    private List<Integer> lessAverageCapacities = new ArrayList<>();
+    private List<Integer> lessAverageCapacityNumbers = new ArrayList<>();
 
-    public LessAverageNumbers(int... numbers) {
-        this.numbers = numbers;
+    public LessAverageNumbers() {
         this.sortNumbers = new SortNumbers();
     }
 
+    public int getAverageCapacity() {
+        return averageCapacity;
+    }
 
+    public int[] getLessAverageCapacities() {
+        int[] capacities = new int[lessAverageCapacities.size()];
+        for (int i = 0; i < capacities.length; i++) {
+            capacities[i] = lessAverageCapacities.get(i);
+        }
+        return capacities;
+    }
 
-    public void lessAverageCapacityNumbers() {
+    public int[] getLessAverageCapacityNumbers(){
+        int[] numbers = new int[lessAverageCapacityNumbers.size()];
+        for (int i = 0; i < numbers.length; i++){
+            numbers[i] = lessAverageCapacityNumbers.get(i);
+        }
+        return numbers;
+    }
+
+    public void extractLessAverageCapacityNumbers(int... numbers) {
+        LOG.info("Extracting numbers with capacity less than average capacity of " + Arrays.toString(numbers));
         int[] capacities = new int[numbers.length];
-        Map<Integer,Integer> capacityNumbers = new TreeMap<>();
         ShortLongNumber shortLongNumber = new ShortLongNumber();
         for (int i = 0; i < numbers.length; i++) {
             capacities[i] = shortLongNumber.numberCapacity(numbers[i]);
-            capacityNumbers.put(capacities[i], numbers[i]);
         }
-        int average = (int) Arrays.stream(capacities).average().getAsDouble();
-        List<Integer> lessAverageCapacities = new ArrayList<>();
-        List<Integer> lessAverageCapacityNumbers = new ArrayList<>();
-        System.out.println("Numbers, which capacity less than average capacity " + average + ":");
+        averageCapacity = (int) Arrays.stream(capacities).average().getAsDouble();
         for (int i = 0; i < capacities.length; i++) {
-            if (capacities[i] < average) {
+            if (capacities[i] < averageCapacity) {
                 lessAverageCapacities.add(capacities[i]);
-                lessAverageCapacityNumbers.add(capacityNumbers.get(capacities[i]));
+                lessAverageCapacityNumbers.add(numbers[i]);
             }
         }
-        System.out.println(lessAverageCapacityNumbers);
     }
 }
